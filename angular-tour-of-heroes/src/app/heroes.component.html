@@ -1,0 +1,38 @@
+<h1>{{title}}</h1>
+<h2>My Heroes</h2>
+<div>
+  <label>Hero name:</label>
+  <form (ngSubmit)="add(hero);" method="post" class="form" #heroForm="ngForm">
+    <div class="form-group">
+      <input type="text"
+             class=""
+             placeholder="name"
+             id="name"
+             required
+             [(ngModel)]="hero.name"
+             name="name"
+             #heroName="ngModel"/>
+    </div>
+    <div class="form-group">
+      <button type="submit" class="btn btn-default" [disabled]="!heroForm.form.valid">Add</button>
+    </div>
+
+  </form>
+
+</div>
+<ul class="heroes">
+  <li *ngFor="let hero of heroes" (click)="onSelect(hero)"
+      [class.selected]="hero === selectedHero">
+    <span class="badge">{{hero.id}}</span>
+    <span>{{hero.name}}</span>
+    <button class="delete"
+            (click)="delete(hero); $event.stopPropagation()">x
+    </button>
+  </li>
+</ul>
+<div *ngIf="selectedHero">
+  <h2>
+    {{selectedHero.name | uppercase}} is my hero
+  </h2>
+  <button (click)="gotoDetail()">View Details</button>
+</div>
